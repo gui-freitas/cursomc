@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gapp.cursomc.domain.Categoria;
 import com.gapp.cursomc.repositories.CategoriaRepository;
+import com.gapp.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -17,7 +18,8 @@ public class CategoriaService {
 	
 	public Categoria buscarPorId(Integer id) {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id 
+				+ ", Tipo: " + Categoria.class.getName()));
 	}
 
 	public List<Categoria> buscarTodos() {
