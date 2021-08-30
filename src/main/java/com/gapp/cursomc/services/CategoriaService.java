@@ -1,5 +1,6 @@
 package com.gapp.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,5 +18,9 @@ public class CategoriaService {
 	public Categoria buscarPorId(Integer id) {
 		Optional<Categoria> obj = categoriaRepository.findById(id);
 		return obj.orElse(null);
+	}
+
+	public List<Categoria> buscarTodos() {
+		return categoriaRepository.findAll();
 	}
 }

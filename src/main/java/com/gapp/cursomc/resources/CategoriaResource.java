@@ -1,7 +1,5 @@
 package com.gapp.cursomc.resources;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +21,7 @@ public class CategoriaResource {
 	
 	@GetMapping
 	public List<Categoria> listarTodos() {
-		Categoria cat1 = new Categoria(1, "Informática");
-		Categoria cat2 = new Categoria(2, "Escritório");
-		
-		List<Categoria> lista = new ArrayList<Categoria>();
-		lista.addAll(Arrays.asList(cat1, cat2));
-		
+		List<Categoria> lista = categoriaService.buscarTodos();
 		return lista;
 	}
 	
