@@ -62,21 +62,26 @@ public class Instanciacao implements CommandLineRunner{
 
 	public void run(String... args) throws Exception {
 		
-		Categoria cat1 = new Categoria(null, "Informática");
-		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria categoria1 = new Categoria(null, "Informática");
+		Categoria categoria2 = new Categoria(null, "Escritório");
+		Categoria categoria3 = new Categoria(null, "Cama, mesa e banho");
+		Categoria categoria4 = new Categoria(null, "Eletrônico");
+		Categoria categoria5 = new Categoria(null, "Jardinagem");
+		Categoria categoria6 = new Categoria(null, "Decoração");
+		Categoria categoria7 = new Categoria(null, "Jardinagem");
 		
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
 		Produto p3 = new Produto(null, "Mouse", 80.00);
 		
-		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2));
+		categoria1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
+		categoria2.getProdutos().addAll(Arrays.asList(p2));
 		
-		p1.getCategorias().addAll(Arrays.asList(cat1));
-		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategorias().addAll(Arrays.asList(cat1));
+		p1.getCategorias().addAll(Arrays.asList(categoria1));
+		p2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
+		p3.getCategorias().addAll(Arrays.asList(categoria1));
 		
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
+		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		Estado estado1 = new Estado(null, "Minas Gerais");
