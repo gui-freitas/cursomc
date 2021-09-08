@@ -20,14 +20,14 @@ public class ClienteResource {
 	private ClienteService clienteService;
 	
 	@GetMapping
-	public List<Cliente> listarTodos() {
-		List<Cliente> lista = clienteService.buscarTodos();
+	public List<Cliente> findAll() {
+		List<Cliente> lista = clienteService.findAll();
 		return lista;
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
-		Cliente obj = clienteService.buscarPorId(id);
+	public ResponseEntity<?> findById(@PathVariable Integer id) {
+		Cliente obj = clienteService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

@@ -16,13 +16,13 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
-	public Pedido buscarPorId(Integer id) {
+	public Pedido findById(Integer id) {
 		Optional<Pedido> obj = pedidoRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id 
 				+ ", Tipo: " + Pedido.class.getName()));
 	}
 
-	public List<Pedido> buscarTodos() {
+	public List<Pedido> findAll() {
 		return pedidoRepository.findAll();
 	}
 }

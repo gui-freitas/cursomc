@@ -16,13 +16,13 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	public Cliente buscarPorId(Integer id) {
+	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id 
 				+ ", Tipo: " + Cliente.class.getName()));
 	}
 
-	public List<Cliente> buscarTodos() {
+	public List<Cliente> findAll() {
 		return clienteRepository.findAll();
 	}
 }
