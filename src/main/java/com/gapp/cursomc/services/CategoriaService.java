@@ -25,4 +25,9 @@ public class CategoriaService {
 	public List<Categoria> buscarTodos() {
 		return categoriaRepository.findAll();
 	}
+	
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return categoriaRepository.save(obj);
+	}
 }
