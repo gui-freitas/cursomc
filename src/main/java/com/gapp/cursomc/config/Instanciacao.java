@@ -68,21 +68,42 @@ public class Instanciacao implements CommandLineRunner{
 		Categoria categoria4 = new Categoria(null, "Eletrônico");
 		Categoria categoria5 = new Categoria(null, "Jardinagem");
 		Categoria categoria6 = new Categoria(null, "Decoração");
-		Categoria categoria7 = new Categoria(null, "Jardinagem");
+		Categoria categoria7 = new Categoria(null, "Perfumaria");
 		
-		Produto p1 = new Produto(null, "Computador", 2000.00);
-		Produto p2 = new Produto(null, "Impressora", 800.00);
-		Produto p3 = new Produto(null, "Mouse", 80.00);
+		Produto produto1 = new Produto(null, "Computador", 2000.00);
+		Produto produto2 = new Produto(null, "Impressora", 800.00);
+		Produto produto3 = new Produto(null, "Mouse", 80.00);
+		Produto produto4 = new Produto(null, "Mesa de escritório", 300.00);
+		Produto produto5 = new Produto(null, "Toalha", 40.00);
+		Produto produto6 = new Produto(null, "Colcha", 90.00);
+		Produto produto7 = new Produto(null, "TV true color", 1200.00);
+		Produto produto8 = new Produto(null, "Roçadeira", 800.00);
+		Produto produto9 = new Produto(null, "Abajour", 100.00);
+		Produto produto10 = new Produto(null, "Pendente", 180.00);
+		Produto produto11 = new Produto(null, "Shampoo", 30.00);
 		
-		categoria1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
-		categoria2.getProdutos().addAll(Arrays.asList(p2));
+		categoria1.getProdutos().addAll(Arrays.asList(produto1, produto2, produto3));
+		categoria2.getProdutos().addAll(Arrays.asList(produto2, produto4));
+		categoria3.getProdutos().addAll(Arrays.asList(produto5, produto6));
+		categoria4.getProdutos().addAll(Arrays.asList(produto1, produto2, produto3, produto7));
+		categoria5.getProdutos().addAll(Arrays.asList(produto8));
+		categoria6.getProdutos().addAll(Arrays.asList(produto9, produto10));
+		categoria7.getProdutos().addAll(Arrays.asList(produto11));
 		
-		p1.getCategorias().addAll(Arrays.asList(categoria1));
-		p2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
-		p3.getCategorias().addAll(Arrays.asList(categoria1));
+		produto1.getCategorias().addAll(Arrays.asList(categoria1));
+		produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria2, categoria4));
+		produto3.getCategorias().addAll(Arrays.asList(categoria1, categoria4));
+		produto4.getCategorias().addAll(Arrays.asList(categoria2));
+		produto5.getCategorias().addAll(Arrays.asList(categoria3));
+		produto6.getCategorias().addAll(Arrays.asList(categoria3));
+		produto7.getCategorias().addAll(Arrays.asList(categoria4));
+		produto8.getCategorias().addAll(Arrays.asList(categoria5));
+		produto9.getCategorias().addAll(Arrays.asList(categoria6));
+		produto10.getCategorias().addAll(Arrays.asList(categoria6));
+		produto11.getCategorias().addAll(Arrays.asList(categoria7));
 		
 		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
-		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+		produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5, produto6, produto7, produto8, produto9, produto10, produto11));
 		
 		Estado estado1 = new Estado(null, "Minas Gerais");
 		Estado estado2 = new Estado(null, "São Paulo");
@@ -122,16 +143,16 @@ public class Instanciacao implements CommandLineRunner{
 		pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
 		pagamentoRepository.saveAll(Arrays.asList(pagamento1, pagamento2));
 		
-		ItemPedido itemPedido1 = new ItemPedido(pedido1, p1, 0.00, 1, 2000.00);
-		ItemPedido itemPedido2 = new ItemPedido(pedido1, p3, 0.00, 2, 80.00);
-		ItemPedido itemPedido3 = new ItemPedido(pedido2, p2, 100.00, 1, 800.00);
+		ItemPedido itemPedido1 = new ItemPedido(pedido1, produto1, 0.00, 1, 2000.00);
+		ItemPedido itemPedido2 = new ItemPedido(pedido1, produto3, 0.00, 2, 80.00);
+		ItemPedido itemPedido3 = new ItemPedido(pedido2, produto2, 100.00, 1, 800.00);
 		
 		pedido1.getItens().addAll(Arrays.asList(itemPedido1, itemPedido2));
 		pedido2.getItens().addAll(Arrays.asList(itemPedido3));
 		
-		p1.getItens().addAll(Arrays.asList(itemPedido1));
-		p2.getItens().addAll(Arrays.asList(itemPedido3));
-		p3.getItens().addAll(Arrays.asList(itemPedido2));
+		produto1.getItens().addAll(Arrays.asList(itemPedido1));
+		produto2.getItens().addAll(Arrays.asList(itemPedido3));
+		produto3.getItens().addAll(Arrays.asList(itemPedido2));
 		
 		itemPedidoRepository.saveAll(Arrays.asList(itemPedido1, itemPedido2, itemPedido3));
 	}
