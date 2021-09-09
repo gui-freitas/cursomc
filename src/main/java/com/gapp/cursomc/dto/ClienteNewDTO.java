@@ -2,22 +2,45 @@ package com.gapp.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.gapp.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@NotEmpty(message = "Necessário preencher o nome!")
+	@Length(min = 5, max = 100, message = "O tamanho deve ser entre 5 e 100 caracteres!")
 	private String nome;
+	
+	@NotEmpty(message = "Necessário preencher o e-mail")
+	@Email(message = "Email inválido")
 	private String email;
+	
+	@NotEmpty(message = "Necessário preencher com CPF ou CPNJ")
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
+	@NotEmpty(message = "Necessário preencher o logradouro")
 	private String logradouro;
+	
+	@NotEmpty(message = "Necessário preencher o numero")
 	private String numero;
+	
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message = "Necessário preencher o cep")
 	private String cep;
 	
+	@NotEmpty(message = "Necessário preencher pelo menos um telefone")
 	private String telefone1;
+	
 	private String telefone2;
 	private String telefone3;
 	
