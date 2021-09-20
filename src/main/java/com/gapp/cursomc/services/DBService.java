@@ -19,6 +19,7 @@ import com.gapp.cursomc.domain.PagamentoComCartao;
 import com.gapp.cursomc.domain.Pedido;
 import com.gapp.cursomc.domain.Produto;
 import com.gapp.cursomc.domain.enums.EstadoPagamento;
+import com.gapp.cursomc.domain.enums.Perfil;
 import com.gapp.cursomc.domain.enums.TipoCliente;
 import com.gapp.cursomc.repositories.CategoriaRepository;
 import com.gapp.cursomc.repositories.CidadeRepository;
@@ -125,13 +126,19 @@ public class DBService {
 		Cliente cliente1 = new Cliente(null, "Maria Silva", "guilhermealexsandro77@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
 		cliente1.getTelefones().addAll(Arrays.asList("27363323","93838393"));
 		
+		Cliente cliente2 = new Cliente(null, "Guilherme Freitas", "gui_tarragui@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
+		cliente1.getTelefones().addAll(Arrays.asList("93883321","34252625"));
+		cliente2.addPerfil(Perfil.ADMIN);
+		
 		Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cliente1, cidade1);
 		Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cliente1, cidade2);
+		Endereco endereco3 = new Endereco(null, "Avenida Floriano", "2106", null, "Centro", "281777012", cliente2, cidade2);
 		
 		cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+		cliente2.getEnderecos().addAll(Arrays.asList(endereco3));
 		
-		clienteRepository.saveAll(Arrays.asList(cliente1));
-		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));	
+		clienteRepository.saveAll(Arrays.asList(cliente1, cliente2));
+		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3));	
 		
 		Pedido pedido1 = new Pedido(null, Instant.parse("2017-09-30T10:32:00Z"), cliente1, endereco1);
 		Pedido pedido2 = new Pedido(null, Instant.parse("2017-10-10T19:35:00Z"), cliente1, endereco2);
