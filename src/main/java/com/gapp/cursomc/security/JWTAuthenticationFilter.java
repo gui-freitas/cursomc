@@ -1,8 +1,8 @@
 package com.gapp.cursomc.security;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -67,7 +67,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
         
         private String json() {
-            long date = new Date().getTime();
+            long date = Instant.now().toEpochMilli();
             return "{\"timestamp\": " + date + ", "
                 + "\"status\": 401, "
                 + "\"error\": \"Não autorizado\", "

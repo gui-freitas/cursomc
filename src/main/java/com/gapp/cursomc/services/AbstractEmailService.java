@@ -1,5 +1,6 @@
 package com.gapp.cursomc.services;
 
+import java.time.Instant;
 import java.util.Date;
 
 import javax.mail.MessagingException;
@@ -37,7 +38,7 @@ public abstract class AbstractEmailService implements EmailService{
 		sm.setTo(pedido.getCliente().getEmail());
 		sm.setFrom(sender);
 		sm.setSubject("Pedido confirmado! Código: " + pedido.getId());
-		sm.setSentDate(new Date(System.currentTimeMillis()));
+		sm.setSentDate(Date.from(Instant.now()));
 		sm.setText(pedido.toString());
 		return sm;
 	}
@@ -65,7 +66,7 @@ public abstract class AbstractEmailService implements EmailService{
 		mimeMessageHelper.setTo(pedido.getCliente().getEmail());
 		mimeMessageHelper.setFrom(sender);
 		mimeMessageHelper.setSubject("Pedido confirmado! Código: " + pedido.getId());
-		mimeMessageHelper.setSentDate(new Date(System.currentTimeMillis()));
+		mimeMessageHelper.setSentDate(Date.from(Instant.now()));
 		mimeMessageHelper.setText(htmlFromTemplatePedido(pedido), true);
 		return mimeMessage;
 	}

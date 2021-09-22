@@ -1,5 +1,6 @@
 package com.gapp.cursomc.security;
 
+import java.time.Instant;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -19,9 +20,11 @@ public class JWTUtil {
 	private Long expiration;
 	
 	public String generateToken(String username) {
+		long i = Instant.now().toEpochMilli() + expiration;
+		
 		return Jwts.builder()
 				.setSubject(username)
-				.setExpiration(new Date(System.currentTimeMillis() + expiration))
+				.setExpiration(new Date(i))
 				.signWith(SignatureAlgorithm.HS512, secret.getBytes())
 				.compact();
 	}
@@ -30,9 +33,8 @@ public class JWTUtil {
 		Claims claims = getClaims(token);
 		if (claims != null) {
 			String username = claims.getSubject();
-			Date expirationDate = claims.getExpiration();
-			Date now = new Date(System.currentTimeMillis());
-			if (username != null && expirationDate != null && now.before(expirationDate)){
+			Instant expirationDate = claims.getExpiration().toInstant();
+			if (username != null && expirationDate != null && Instant.now().isBefore((expirationDate))){
 				return true;
 			}
 		}
