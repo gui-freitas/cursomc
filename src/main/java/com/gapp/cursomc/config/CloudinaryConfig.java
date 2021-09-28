@@ -28,4 +28,8 @@ public class CloudinaryConfig {
 	    "secure", true));
 	    return cloudinary;
 	}
+
+	public String getCloudName() {
+		return cloudName;
+	}
 }
