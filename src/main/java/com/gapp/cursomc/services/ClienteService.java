@@ -1,10 +1,13 @@
 package com.gapp.cursomc.services;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,6 +44,12 @@ public class ClienteService {
 	
 	@Autowired
 	private CloudinaryService cloudinaryService;
+	
+	@Autowired
+	private ImageService imageService;
+	
+	@Value("${img.prefix.client.profile}")
+	private String prefix;
 	
 	public Cliente findById(Integer id) {
 		
@@ -111,16 +120,14 @@ public class ClienteService {
 		cliente.setEmail(obj.getEmail());
 	}
 	
-	public URI uploadProfilePicture(MultipartFile multipartFile) {
+	public URI uploadProfilePicture(MultipartFile multipartFile) throws IOException {
 		UserSS user= UserService.authenticated();
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado!");
 		}
-		URI uri = cloudinaryService.uploadFile(multipartFile);
-		Cliente cliente = findById(user.getId());
-		cliente.setImageUrl(uri.toString());
-		clienteRepository.save(cliente);
-		return uri;
+		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		String fileName = prefix + user.getId() + ".jpg";
 		
+		return cloudinaryService.uploadFile(jpgImage, fileName, "image");
 	}
 }

@@ -1,5 +1,6 @@
 package com.gapp.cursomc.resources;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -84,7 +85,7 @@ public class ClienteResource {
 	}
 	
 	@PostMapping(value = "/picture")
-	public ResponseEntity<Void> uploadProfilePicture(@RequestParam(name = "file") MultipartFile multipartFile){
+	public ResponseEntity<Void> uploadProfilePicture(@RequestParam(name = "file") MultipartFile multipartFile) throws IOException{
 		URI uri = clienteService.uploadProfilePicture(multipartFile);
 		return ResponseEntity.created(uri).build();
 	}

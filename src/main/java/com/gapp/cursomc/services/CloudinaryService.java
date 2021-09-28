@@ -1,11 +1,14 @@
 package com.gapp.cursomc.services;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +36,29 @@ public class CloudinaryService {
 
 			LOG.info("Iniciando upload!");
 			Map result = cloudinaryConfig.cloudinaryClient().uploader().upload(uploadFile, ObjectUtils.asMap("public_id", removeFormat(fileName)));
+			String urlLoaded = cloudinaryConfig.cloudinaryClient().signedPreloadedImage(result);
+			String cdn = Cloudinary.AKAMAI_SHARED_CDN.toString();
+			LOG.info("Upload finalizado!");
+			
+			URI uri = new URI(cdn + "/" + cloudinaryConfig.getCloudName() + "/" + urlLoaded);
+			return uri;
+		} 
+		catch (IOException e) {
+			throw new FileException("Erro de IO: " + e.getMessage());
+		}
+		catch (URISyntaxException e) {
+			throw new FileException("Erro ao converter a String para URI");
+		}
+	}
+
+	public URI uploadFile(BufferedImage jpgImage, String fileName, String resourceType) {
+		try {
+			Map params = ObjectUtils.asMap("public_id", removeFormat(fileName), "resource_type", resourceType);
+			File outputFile = new File(fileName);
+		    ImageIO.write(jpgImage, "jpg", outputFile);
+
+			LOG.info("Iniciando upload!");
+			Map result = cloudinaryConfig.cloudinaryClient().uploader().upload(outputFile, params);
 			String urlLoaded = cloudinaryConfig.cloudinaryClient().signedPreloadedImage(result);
 			String cdn = Cloudinary.AKAMAI_SHARED_CDN.toString();
 			LOG.info("Upload finalizado!");
