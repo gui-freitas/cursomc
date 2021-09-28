@@ -112,6 +112,15 @@ public class ClienteService {
 	}
 	
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
-		return cloudinaryService.uploadFile(multipartFile);
+		UserSS user= UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado!");
+		}
+		URI uri = cloudinaryService.uploadFile(multipartFile);
+		Cliente cliente = findById(user.getId());
+		cliente.setImageUrl(uri.toString());
+		clienteRepository.save(cliente);
+		return uri;
+		
 	}
 }
