@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.gapp.cursomc.config.CloudinaryConfig;
+import com.gapp.cursomc.services.exceptions.FileException;
 
 @Service
 public class CloudinaryService {
@@ -32,17 +34,17 @@ public class CloudinaryService {
 			LOG.info("Iniciando upload!");
 			Map result = cloudinaryConfig.cloudinaryClient().uploader().upload(uploadFile, ObjectUtils.asMap("public_id", removeFormat(fileName)));
 			String urlLoaded = cloudinaryConfig.cloudinaryClient().signedPreloadedImage(result);
-			String cdn = cloudinaryConfig.cloudinaryClient().AKAMAI_SHARED_CDN.toString();
+			String cdn = Cloudinary.AKAMAI_SHARED_CDN.toString();
 			LOG.info("Upload finalizado!");
 			
 			URI uri = new URI(cdn + "/" + cloudinaryConfig.getCloudName() + "/" + urlLoaded);
 			return uri;
 		} 
 		catch (IOException e) {
-			throw new RuntimeException("Erro de IO: " + e.getMessage());
+			throw new FileException("Erro de IO: " + e.getMessage());
 		}
 		catch (URISyntaxException e) {
-			throw new RuntimeException("Erro ao converter a String para URI");
+			throw new FileException("Erro ao converter a String para URI");
 		}
 	}
 	
