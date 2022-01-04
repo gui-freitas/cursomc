@@ -7,11 +7,11 @@ import java.util.List;
 public class ValidationError extends StandardError {
 	
 	private List<FieldMessage> errors = new ArrayList<>();
-	
-	public ValidationError(Integer status, String msg, Instant timestamp) {
-		super(status, msg, timestamp);
-	}
 
+	public ValidationError(Instant timestamp, Integer status, String error, String msg, String path) {
+		super(timestamp, status, error, msg, path);
+	}
+	
 	public List<FieldMessage> getErrors() {
 		return errors;
 	}

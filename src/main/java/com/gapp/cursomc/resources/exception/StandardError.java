@@ -4,14 +4,26 @@ import java.time.Instant;
 
 public class StandardError {
 	
-	private Integer status;
-	private String msg;
 	private Instant timestamp;
+	private Integer status;
+	private String error;
+	private String message;
+	private String path;
 	
-	public StandardError(Integer status, String msg, Instant timestamp) {
+	public StandardError(Instant timestamp, Integer status, String error, String message, String path) {
 		super();
+		this.timestamp = timestamp;
 		this.status = status;
-		this.msg = msg;
+		this.error = error;
+		this.message = message;
+		this.path = path;
+	}
+
+	public Instant getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Instant timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -23,19 +35,27 @@ public class StandardError {
 		this.status = status;
 	}
 
-	public String getMsg() {
-		return msg;
+	public String getError() {
+		return error;
 	}
 
-	public void setMsg(String msg) {
-		this.msg = msg;
+	public void setError(String error) {
+		this.error = error;
 	}
 
-	public Instant getTimestamp() {
-		return timestamp;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setTimestamp(Instant timestamp) {
-		this.timestamp = timestamp;
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 }
