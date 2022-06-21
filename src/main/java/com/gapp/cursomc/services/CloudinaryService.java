@@ -67,4 +67,33 @@ public class CloudinaryService {
 		}
 		return newName;
 	}
+	
+	//https://support.cloudinary.com/hc/en-us/community/posts/360009534411-How-can-i-get-all-files-or-images-from-a-folder-
+	public ArrayList<String> getPictures() throws Exception {
+		
+		JSONObject outerObject = null;
+		String jsonNext = null;
+		boolean ifWeHaveMoreResources = true;
+		ArrayList<String> listResult = new ArrayList<String>();
+		
+		while(ifWeHaveMoreResources) {
+			outerObject = new JSONObject(cloudinaryConfig.cloudinaryClient().api().resources(ObjectUtils.asMap("max_results", 10,"next_cursor", jsonNext)));
+			
+			if (outerObject.has("next_cursor")) {
+				jsonNext = outerObject.get("next_cursor").toString();
+				ifWeHaveMoreResources = true;
+			}
+			else{
+				ifWeHaveMoreResources = false;
+			}
+			
+			JSONArray jsonArray = outerObject.getJSONArray("resources");
+			for (int i = 0, size = jsonArray.length(); i < size; i++) {
+				JSONObject objectInArray = jsonArray.getJSONObject(i);
+				String url = objectInArray.get("secure_url").toString();
+				listResult.add(url);
+			}
+		}
+		return listResult;
+	}
 }
